@@ -1,0 +1,48 @@
+<div>
+    <h1>Hello</h1>
+</div>
+<div>How are you doing ?</div>
+
+<div>
+    <input id="input" type="text" placeholder="Ask..." name="Ask">
+</div>
+<divsp>
+    <button type="submit" onclick="Clear()">Submit
+
+    </button>
+
+</divsp>
+
+<div id="appendBox">
+</div>
+<div id="audioBox">
+
+</div>
+
+<script>
+    function Clear() {
+
+        var text = document.getElementById("input").value
+        var textnode = document.createTextNode(text)
+        document.getElementById("appendBox").appendChild(textnode)
+        document.getElementById("appendBox").appendChild(document.createElement("br"))
+
+        document.getElementById("input").value = "";
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log('this: ', this);
+                var audioTag = '<audio controls> <
+                    source src = "audio.wav"
+                type = "audio/wav" >
+                    Your browser does not support the audio tag. <
+                    /audio> '      
+                document.getElementById('audioBox').innerHTML = audioTag
+            }
+        };
+        xhttp.open("GET", "http://localhost:3000/audio?text=" + text, true);
+        console.log('url: ', "localhost:3000/audio?text=" + text);
+        xhttp.send();
+    }
+</script>
